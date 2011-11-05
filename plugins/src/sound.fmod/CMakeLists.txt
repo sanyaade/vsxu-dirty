@@ -13,8 +13,8 @@ if(UNIX)
 endif(UNIX)
 
 if(WIN32)
-  include_directories(lib/win32/api/inc/)
-  link_directories(lib/win32/api/lib/)
+  include_directories(${list_file_path}/fmodapi43800win32/api/inc/)
+  link_directories(${list_file_path}/fmodapi43800win32/api/lib/)
 endif(WIN32)
 
 file(GLOB LOCAL_SOURCES "*.cpp")
