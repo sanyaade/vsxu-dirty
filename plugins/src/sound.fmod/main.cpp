@@ -29,7 +29,8 @@
 #include "vsx_param.h"
 #include "vsx_module.h"
 #include "vsx_float_array.h"
-#include "main.h"
+#include <fmod.h>
+#include <fmod_errors.h>
 #include "vsx_math_3d.h"
 #include "caudioanalyzer_fmod.h"
 #include "fmod_holder.h"
@@ -1006,12 +1007,21 @@ void run() {
 
 
 
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-//::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+//******************************************************************************
+//*** F A C T O R Y ************************************************************
+//******************************************************************************
 
-#if BUILDING_DLL
+#ifndef _WIN32
+#define __declspec(a)
+#endif
+
+extern "C" {
+__declspec(dllexport) vsx_module* create_new_module(unsigned long module);
+__declspec(dllexport) void destroy_module(vsx_module* m,unsigned long module);
+__declspec(dllexport) unsigned long get_num_modules();
+}
+
+
 vsx_module* create_new_module(unsigned long module) {
   switch (module) {
     case 0: return (vsx_module*)(new vsx_module_sound_stream_play);
@@ -1033,5 +1043,4 @@ void destroy_module(vsx_module* m,unsigned long module) {
 unsigned long get_num_modules() {
   return 3;
 }
-#endif
 
