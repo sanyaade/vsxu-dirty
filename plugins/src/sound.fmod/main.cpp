@@ -636,13 +636,13 @@ void on_delete() {
 void run() {
   if (!fmod_init)
   {
-    //printf("Initializing fmod...\n");
+    printf("Initializing fmod...\n");
     result = FMOD_System_Create(&fsystem);
     ERRCHECK(result);
 
     result = FMOD_System_GetVersion(fsystem, &version);
     ERRCHECK(result);
-    FMOD_System_SetOutput(fsystem, FMOD_OUTPUTTYPE_ALSA);
+    //FMOD_System_SetOutput(fsystem, FMOD_OUTPUTTYPE_PULSEAUDIO);
 //    FMOD_System_SetDSPBufferSize(fsystem,2048,8);
     //FMOD_System_SetDSPBufferSize(fsystem,256,8);
 

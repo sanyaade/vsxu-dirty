@@ -44,14 +44,15 @@ include (../cmake_globals.txt)
 include(_sources)
 add_library(${module_id} MODULE ${LOCAL_SOURCES} ${API_STUBS} ${SOURCES} "fftreal/fftreal.cpp")
 include(../cmake_suffix.txt)
-target_link_libraries(${module_id} ${FMOD_LIB_NAME} vsxu_engine)
 
 if(WIN32)
-
   if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     install(FILES ${list_file_path}/fmodapi43800win/api/fmodex64.dll DESTINATION . COMPONENT engine)
+    set(FMOD_LIB_NAME "fmodex64")
   else()
-message(install windows)
     install(FILES ${list_file_path}/fmodapi43800win/api/fmodex.dll DESTINATION . COMPONENT engine)
   endif()
 endif()
+
+target_link_libraries(${module_id} ${FMOD_LIB_NAME} vsxu_engine)
+
